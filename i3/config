@@ -1,0 +1,153 @@
+# This defines which key super maps to on your keyboard.  
+# Alt key is Mod1, and Windows key is Mod4
+set $mod Mod4
+set $alt Mod1
+set $ctrl control
+
+# Terminal Of Choice
+set $terminal_path /usr/bin/gnome-terminal
+
+# compton config file
+set $compton_config ~/.config/regolith/compton/config
+
+# i3xrocks config file
+set $i3xrocks_config /etc/regolith/i3xrocks/config
+
+# Movement / Focus
+
+# Focus
+focus_follows_mouse no
+
+bindsym $mod+Up          focus up
+bindsym $mod+Down        focus down
+bindsym $mod+Left        focus left
+bindsym $mod+Right       focus right
+
+# Move Focused Window
+bindsym $mod+$ctrl+Left  move left
+bindsym $mod+$ctrl+Down  move down
+bindsym $mod+$ctrl+Up    move up
+bindsym $mod+$ctrl+Right move right
+
+# Resizing
+bindsym $mod+Shift+Left   resize shrink width 10 px or 10 ppt
+bindsym $mod+Shift+Down   resize grow height 10 px or 10 ppt
+bindsym $mod+Shift+Up     resize shrink height 10 px or 10 ppt
+bindsym $mod+Shift+Right  resize grow width 10 px or 10 ppt
+
+bindsym $mod+z+Left   resize shrink width 1 px or 1 ppt
+bindsym $mod+z+Down   resize grow height 1 px or 1 ppt
+bindsym $mod+z+Up     resize shrink height 1 px or 1 ppt
+bindsym $mod+Z+Right  resize grow width 1 px or 1 ppt
+
+# Toggle Floating
+bindsym $mod+space floating toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# kill focused window
+bindsym $mod+x kill
+
+
+
+
+
+
+# System stuff
+bindsym $mod+Delete exec /usr/bin/gnome-session-quit --logout
+bindsym $mod+End exec /usr/bin/gnome-session-quit --reboot
+bindsym $mod+Next exec /usr/bin/gnome-session-quit --power-off
+
+# reload the configuration file
+bindsym $mod+Shift+r "reload; restart"
+
+# split in horizontal orientation
+bindsym $mod+comma split h
+
+# split in vertical orientation
+bindsym $mod+period split v
+
+
+
+
+
+
+# Easy start applications
+
+# Start Firefox
+bindsym $mod+Shift+Return exec firefox
+
+# Start Terminal
+bindsym $mod+Return exec $terminal_path
+
+# Gnome control centre
+bindsym $mod+m exec gnome-control-center
+
+
+
+
+
+
+# Gaps
+bindsym $mod+o gaps inner all set 0
+bindsym $mod+p gaps inner all set 8
+bindsym $mod+bracketleft gaps inner all set 16
+bindsym $mod+bracketright gaps inner all set 32
+bindsym $mod+backslash gaps inner all set 48
+
+bindsym $mod+$ctrl+o gaps inner all set 64
+bindsym $mod+$ctrl+p gaps inner all set 96
+bindsym $mod+$ctrl+bracketleft gaps inner all set 128
+bindsym $mod+$ctrl+bracketright gaps inner all set 192
+bindsym $mod+$ctrl+backslash gaps inner all set 256
+
+gaps outer 0
+gaps inner 0
+
+# Colors                 border  backgr. text    indicator child_border
+client.focused          #032527  #15CD36 #011618 #032527   #15CD36
+client.focused_inactive #15CD36  #032527 #D0D5CD #032527   #032527
+client.unfocused        #15CD36  #032527 #D0D5CD #032527   #032527
+client.placeholder      #15CD36  #032527 #D0D5CD #032527   #032527
+client.urgent           #15CD36  #032527 #D0D5CD #032527   #032527
+
+# Other potential colors
+# #AB8945 (wood)
+# #6E4017 (dark wood)
+# #4CCAB4 (bright blue)
+# #0D5843 (dark blue)
+
+# Etc colors
+set $bg-color            #03252700
+set $inactive-bg-color   #032527
+set $text-color          #D0D5CD
+set $inactive-text-color #D0D5CD
+set $urgent-bg-color     #d10e0eee
+
+# Sets font size
+font xft:monospace 10
+
+# Disable title bars
+#for_window [class="^.*"] border pixel 2
+new_window pixel 2
+new_float none
+
+
+# Wallpaper
+#exec_always --no-startup-id feh --no-fehbg --bg-fill ~/.config/i3/wallpaper.png --no-feh-bg --bg-fill ~/.config/i3/wallpaper.png
+
+# Start the composite manager
+exec_always --no-startup-id compton -b -f --config $compton_config
+
+# Startup script
+exec --no-startup-id sh ~/.config/regolith/scripts/startupScript.sh
+exec_always --no-startup-id mkidr ~/applesaretheverybest
+
+# Start polybar
+exec --no-startup-id polybar -c ~/.config/regolith/polybar/config example
